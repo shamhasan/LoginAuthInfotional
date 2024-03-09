@@ -1,4 +1,4 @@
-package com.example.loginauth.home
+package com.example.LoginAuth.threeMainPages
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -35,17 +35,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.loginauth.R
-import com.example.loginauth.login.LoginViewModel
 import com.example.loginauth.ui.theme.Blue
 import com.example.loginauth.ui.theme.Yellow
 
 @OptIn(ExperimentalFoundationApi::class)
+@Preview
 @Composable
-fun Home(loginViewModel: LoginViewModel? = null,
-         onNavToHomePage:() -> Unit,
-         onNavToSignUpPage:() -> Unit,
-         onNavToLoginPage:() -> Unit) {val namaUser = "Moh Hatta"
-
+fun Homepage() {
+    val namaUser = "Moh Hatta"
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +51,8 @@ fun Home(loginViewModel: LoginViewModel? = null,
     )
     Column(
         Modifier
-            .background(Color.Transparent)
+            .background(Color.Transparent),
+        Arrangement.Center
     ) {
         Box(
             modifier = Modifier
@@ -291,16 +290,3 @@ fun Home(loginViewModel: LoginViewModel? = null,
         }
     }
 }
-
-@Preview
-@Composable
-fun prevHome() {
-    Home(onNavToHomePage = { /*TODO*/ }, onNavToSignUpPage = { /*TODO*/ }) {
-
-    }
-    
-}
-
-
-
-
