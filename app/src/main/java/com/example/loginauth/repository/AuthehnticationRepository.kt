@@ -17,18 +17,26 @@ class AuthehnticationRepository {
     suspend fun createUser(
         email:String,
         password:String,
-        onComplete:(Boolean) ->Unit
-        ) = withContext(Dispatchers.IO){
-            Firebase.auth
-                .createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener() {
-                    if (it.isSuccessful){
-                        onComplete.invoke(true)
-                    }else{
-                        onComplete.invoke(false)
-                    }
-                }.await()
+        confirmPassword:String,
+        onComplete:(Boolean) -> Unit
+    ) = withContext(Dispatchers.IO){
+        Firebase.auth
+        if (password != confirmPassword) {
+            onComplete.invoke(false)
+            return@withContext
+        }
+
+        Firebase.auth
+            .createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener() {
+                if (it.isSuccessful){
+                    onComplete.invoke(true)
+                } else {
+                    onComplete.invoke(false)
+                }
+            }.await()
     }
+
 
     suspend fun login(
         email:String,

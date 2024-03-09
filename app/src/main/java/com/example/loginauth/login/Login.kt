@@ -249,6 +249,12 @@ fun SignUpScreen(
                 onNavToHomePage.invoke()
             }
         }
+        if (isError) {
+            Text(
+                text = loginUiState?.signUpError ?: "unknown error",
+                color = Color.Red
+            )
+        }
 
 
 

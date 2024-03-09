@@ -21,21 +21,20 @@ class LoginViewModel(
     var loginUiState by mutableStateOf(LoginUiState())
         private set
 
-
     fun onUserNameChange(userName: String){
         loginUiState = loginUiState.copy(userName = userName)
     }
     fun onPassswordChange(password: String){
         loginUiState = loginUiState.copy(password = password)
     }
+    fun onUserNameChangeSignUp(userName: String){
+        loginUiState = loginUiState.copy(userNameSignUp = userName)
+    }
     fun onPasswordChangeSignup(password: String){
         loginUiState = loginUiState.copy(passwordSignup = password)
     }
     fun onConfirmPasswordChange(password: String){
         loginUiState = loginUiState.copy(confirmPasswordSignup = password)
-    }
-    fun onUserNameChangeSignUp(userName: String){
-        loginUiState = loginUiState.copy(userName = userName)
     }
 
     private fun validateLoginForm() =
@@ -47,7 +46,25 @@ class LoginViewModel(
                 loginUiState.passwordSignup.isNotBlank()&&
                 loginUiState.confirmPasswordSignup.isNotBlank()
 
-    fun createUser(context: Context) = viewModelScope.launch{}
+    fun createUser(context: Context) = viewModelScope.launch{
+        repository.createUser(loginUiState.userNameSignUp, loginUiState.passwordSignup, loginUiState.confirmPasswordSignup){ isSuccessful ->
+            loginUiState = if (isSuccessful){
+                Toast.makeText(
+                    context,
+                    "Success login",
+                    Toast.LENGTH_SHORT
+                ).show()
+                loginUiState.copy(isSuccessLogin = true)
+            } else {
+                Toast.makeText(
+                    context,
+                    "Failed login",
+                    Toast.LENGTH_SHORT
+                ).show()
+                loginUiState.copy(isSuccessLogin = false)
+            }
+        }
+    }
     fun loginUser(context: Context) = viewModelScope.launch {
         try{
             if(!validateLoginForm()){

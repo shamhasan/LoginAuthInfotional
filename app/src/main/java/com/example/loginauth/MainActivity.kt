@@ -3,20 +3,15 @@ package com.example.loginauth
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.loginauth.login.LoginViewModel
+import com.example.loginauth.onBoarding.screen.PagerScreen
 import com.example.loginauth.ui.theme.LoginAuthTheme
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import com.example.loginauth.onBoarding.screen.SinglePage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +27,7 @@ class MainActivity : ComponentActivity() {
                     Navigation(loginViewModel = loginViewModel)
                 }
             }
+//            PagerScreen()
         }
     }
 }
