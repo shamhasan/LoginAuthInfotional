@@ -56,7 +56,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -68,31 +68,32 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.android.support:support-annotations:28.0.0")
+    implementation("androidx.compose.material3:material3-android:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
 
-    implementation ("com.airbnb.android:lottie-compose:5.2.0")
+    implementation ("com.airbnb.android:lottie-compose:6.4.0")
 
     // Splash API
-    implementation ("androidx.core:core-splashscreen:1.0.0-beta01")
+    implementation ("androidx.core:core-splashscreen:1.0.1")
 
     // Navigation Compose
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha02")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Pager and Indicators - Accompanist
-    implementation ("com.google.accompanist:accompanist-pager:0.12.0")
-    implementation ("com.google.accompanist:accompanist-pager-indicators:0.12.0")
+    implementation ("com.google.accompanist:accompanist-pager:0.34.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.34.0")
 
     // DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("com.google.dagger:hilt-android:2.51")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 }

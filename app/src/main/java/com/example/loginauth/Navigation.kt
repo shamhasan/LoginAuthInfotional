@@ -61,9 +61,7 @@ fun Navigation(
             }
 
             composable(route = HomeRoutes.Home.name){
-               Home(onNavToHomePage = { /*TODO*/ }, onNavToSignUpPage = { /*TODO*/ }) {
-                   
-               }
+               Home(navController)
             }
         }
 
