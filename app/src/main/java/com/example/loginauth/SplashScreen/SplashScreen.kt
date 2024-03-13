@@ -16,7 +16,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.loginauth.InfotionalBottomNavigationBarImplementation
 import com.example.loginauth.R
 import kotlinx.coroutines.delay
 
@@ -62,6 +61,6 @@ fun SplashScreenNavigation() {
     ) {
         composable("splash_screen") { SplashScreen(navController = navController) }
         // Main Screen
-        composable("navigationHomepage") { InfotionalBottomNavigationBarImplementation() }
+        composable("navigationHomepage") { }
     }
 }
