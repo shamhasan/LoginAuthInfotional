@@ -1,8 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.example.LoginAuth.threeMainPages
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,25 +23,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.loginauth.BottomNavigationBar
 import com.example.loginauth.ui.theme.Blue
-import com.example.loginauth.ui.theme.LilDarkBlue
 
-//@Preview
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @Composable
-fun CariMentor(navController: NavHostController) {
-
+fun CariMentor(
+    navController: NavController
+) {
     Scaffold (
         bottomBar = { BottomNavigationBar(navController = navController, 1) }
-    ) {
+    ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.White)
+                .padding(it)
         ) {
 //        Column(
 //            modifier = Modifier
@@ -94,26 +94,25 @@ fun CariMentor(navController: NavHostController) {
                 Modifier
                     .height(48.dp)
                     .fillMaxWidth()
-                    .background(LilDarkBlue)
+                    .background(Color.Gray)
             ) {
                 Column(
                     Modifier
-                        .align(Alignment.TopCenter),
+                        .align(Alignment.Center),
                     Arrangement.Center,
                     Alignment.CenterHorizontally,
                 ) {
                     var text by rememberSaveable { mutableStateOf("") }
                     var active by rememberSaveable { mutableStateOf(false) }
 
+
                     SearchBar(
                         query = text,
                         onQueryChange = {text = it},
                         onSearch = {active = false},
                         active = active,
-                        onActiveChange = {active = it},
-                        Modifier
-                            .height(36.dp)
-                            .padding(top = 3.dp, start = 28.dp, end = 28.dp)
+                        onActiveChange = {active = it}
+
                     ) {
 
                     }
@@ -130,6 +129,7 @@ fun CariMentor(navController: NavHostController) {
             }
         }
     }
+
 }
 
 

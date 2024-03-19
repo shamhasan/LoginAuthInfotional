@@ -37,6 +37,10 @@ class LoginViewModel(
         loginUiState = loginUiState.copy(confirmPasswordSignup = password)
     }
 
+    fun onNameChange(name: String){
+        loginUiState = loginUiState.copy(name = name)
+    }
+
     private fun validateLoginForm() =
         loginUiState.userName.isNotBlank() &&
                 loginUiState.password.isNotBlank()
@@ -107,6 +111,7 @@ class LoginViewModel(
 }
 
 data class LoginUiState(
+    val name:String="",
     val userName:String = "",
     val password:String = "",
     val userNameSignUp:String = "",

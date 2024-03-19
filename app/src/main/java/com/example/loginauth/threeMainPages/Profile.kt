@@ -37,7 +37,9 @@ import com.example.loginauth.ui.theme.Yellow
 //@Preview
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Profile(navController: NavHostController) {
+fun Profile(
+    navController: NavHostController,
+) {
     val namaUser = "Brandon Geraldo"
 
     Scaffold(
@@ -69,7 +71,7 @@ fun Profile(navController: NavHostController) {
                     .padding(start = 12.dp)
                     .size(24.dp, 24.dp)
                     .background(Color.Transparent, RoundedCornerShape(24f))
-                    .clickable {  }
+                    .clickable { }
             ) {
                 Image(
                     painterResource(id = R.drawable.panah),
@@ -314,3 +316,4 @@ fun Profile(navController: NavHostController) {
         }
     }
 }
+

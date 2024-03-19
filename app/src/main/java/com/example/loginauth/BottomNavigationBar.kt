@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.LoginAuth.threeMainPages.CariMentor
 import com.example.LoginAuth.threeMainPages.Homepage
 import com.example.LoginAuth.threeMainPages.Profile
 import com.example.LoginAuth.threeMainPages.Routes
@@ -69,7 +68,7 @@ fun NavigationGraph(navController: NavController) {
         startDestination = Routes.Homepage.route
     ) {
         composable(Routes.Homepage.route) { Homepage() }
-        composable(Routes.CariMentor.route) { CariMentor(navController) }
+//        composable(Routes.CariMentor.route) { CariMentor(navController) }
         composable(Routes.Profile.route) { Profile(navController) }
     }
 }
