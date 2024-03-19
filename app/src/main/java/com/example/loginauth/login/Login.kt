@@ -36,6 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.loginauth.R
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 
 @Composable
@@ -189,7 +191,23 @@ fun SignUpScreen(
                     color = Color.Red
                 )
             }
-
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                value = loginUiState?.name ?: "",
+                onValueChange = { loginViewModel?.onNamechange(it) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = "Masukkan Nama")
+                },
+                isError = isError
+            )
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -244,7 +262,8 @@ fun SignUpScreen(
                 isError = isError
             )
             Button(onClick = { loginViewModel?.createUser(context)},
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 24.dp),
                 colors = ButtonDefaults.buttonColors( Color(0xFF0069B0))) {
                 Text(text = "Sign in",
@@ -272,7 +291,7 @@ fun SignUpScreen(
 
             LaunchedEffect(key1 = loginViewModel?.hasUser) {
                 if (loginViewModel?.hasUser == true) {
-                    onNavToLoginPage.invoke()
+                    onNavToHomePage.invoke()
                 }
             }
             if (isError) {
@@ -299,8 +318,8 @@ fun PrevLoginScreen() {
 @Preview(showSystemUi = true)
 @Composable
 fun PrevSignUpScreen() {
-//    SignUpScreen {
-//
-//    }
+    SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
+
+    }
 }
 

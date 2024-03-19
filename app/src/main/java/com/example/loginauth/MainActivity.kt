@@ -21,26 +21,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            val loginViewModel = viewModel(modelClass = LoginViewModel::class.java)
-//            LoginAuthTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Navigation(loginViewModel = loginViewModel, onNavToLoginPage = null)
-//                }
-//            }
+            val loginViewModel = viewModel(modelClass = LoginViewModel::class.java)
+            LoginAuthTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Navigation(loginViewModel = loginViewModel, onNavToLoginPage = null)
+                }
+            }
 //            PagerScreen()
-            val navController = rememberNavController()
-
-            NavHost(navController = navController, startDestination = "DetailMentor"){
-                composable("DetailMentor"){ DetailMentor(navController)}
-                composable("MetodeBayar"){ MetodePembayaran(navController) }
-            }
-            Surface {
-                DetailMentor()
-            }
+//
+//             val navController = rememberNavController()
+//            NavHost(navController = navController, startDestination = "DetailMentor"){
+//                composable("DetailMentor"){ DetailMentor(navController)}
+//                composable("MetodeBayar"){ MetodePembayaran(navController) }
+//            }
 
         }
     }

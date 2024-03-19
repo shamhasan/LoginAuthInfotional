@@ -96,4 +96,9 @@ dependencies {
     // Dagger - Hilt
     implementation ("com.google.dagger:hilt-android:2.51")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-firestore")
 }

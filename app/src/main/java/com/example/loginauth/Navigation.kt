@@ -11,6 +11,7 @@ import com.example.loginauth.home.Home
 import com.example.loginauth.login.LoginScreen
 import com.example.loginauth.login.LoginViewModel
 import com.example.loginauth.login.SignUpScreen
+import com.example.loginauth.threeMainPages.MentorDetail.DetailMentor
 
 enum class LoginRoutes{
     Signup,
@@ -21,7 +22,7 @@ enum class HomeRoutes{
     Homepage,
     CariMentor,
     Profile,
-    Detail,
+    DetailMentor,
     LogInPage
 
 }
@@ -62,7 +63,7 @@ fun Navigation(
             },
                 loginViewModel = loginViewModel
             ) {
-                navController.navigate(LoginRoutes.Signup.name)
+                navController.navigate(LoginRoutes.Signin.name)
             }
         }
 
@@ -74,6 +75,9 @@ fun Navigation(
         }
         composable(route = HomeRoutes.Profile.name){
             Profile(navController)
+        }
+        composable(route = HomeRoutes.DetailMentor.name){
+            DetailMentor(navController)
         }
     }
 }
