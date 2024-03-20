@@ -74,7 +74,4 @@ fun Navigation(
                 Profile(navController)
             }
         }
-
-
-
 }
