@@ -66,18 +66,22 @@ fun Navigation(
                 navController.navigate(LoginRoutes.Signin.name)
             }
         }
+// <<<<<<< revo'sproject
+// }
+// =======
 
-        composable(route = HomeRoutes.Homepage.name){
-            Home(navController)
-        }
-        composable(route = HomeRoutes.CariMentor.name){
-            CariMentor(navController)
-        }
-        composable(route = HomeRoutes.Profile.name){
-            Profile(navController)
-        }
-        composable(route = HomeRoutes.DetailMentor.name){
-            DetailMentor(navController)
-        }
-    }
-}
+//         composable(route = HomeRoutes.Homepage.name){
+//             Home(navController)
+//         }
+//         composable(route = HomeRoutes.CariMentor.name){
+//             CariMentor(navController)
+//         }
+//         composable(route = HomeRoutes.Profile.name){
+//             Profile(navController)
+//         }
+//         composable(route = HomeRoutes.DetailMentor.name){
+//             DetailMentor(navController)
+//         }
+//     }
+// }
+// >>>>>>> master
