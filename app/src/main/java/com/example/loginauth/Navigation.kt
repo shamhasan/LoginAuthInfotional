@@ -11,6 +11,7 @@ import com.example.loginauth.home.Home
 import com.example.loginauth.login.LoginScreen
 import com.example.loginauth.login.LoginViewModel
 import com.example.loginauth.login.SignUpScreen
+import com.example.loginauth.threeMainPages.MentorDetail.DetailMentor
 
 enum class LoginRoutes{
     Signup,
@@ -21,57 +22,66 @@ enum class HomeRoutes{
     Homepage,
     CariMentor,
     Profile,
-    Detail
+    DetailMentor,
+    LogInPage
 
 }
 
 @Composable
 fun Navigation(
     navController: NavHostController = rememberNavController(),
-    loginViewModel: LoginViewModel
-    ) {
-        NavHost(navController = navController,
-            startDestination = LoginRoutes.Signin.name ){
-            composable(route = LoginRoutes.Signin.name){
-                LoginScreen(onNavToHomePage = {navController.navigate(HomeRoutes.Homepage.name){
+    loginViewModel: LoginViewModel,
+    onNavToLoginPage: (() -> Unit)?
+) {
+    NavHost(navController = navController,
+        startDestination = LoginRoutes.Signin.name ){
+        composable(route = LoginRoutes.Signin.name){
+            LoginScreen(onNavToHomePage = {navController.navigate(HomeRoutes.Homepage.name){
+                launchSingleTop = true
+                popUpTo(route = LoginRoutes.Signin.name){
+                    inclusive = true
+                }
+            }
+            },
+                loginViewModel = loginViewModel
+            ) {
+                navController.navigate(LoginRoutes.Signup.name){
                     launchSingleTop = true
-                    popUpTo(route = LoginRoutes.Signin.name){
+                    popUpTo(LoginRoutes.Signin.name){
                         inclusive = true
                     }
                 }
-                },
-                    loginViewModel = loginViewModel
-                ) {
-                    navController.navigate(LoginRoutes.Signup.name){
-                        launchSingleTop = true
-                        popUpTo(LoginRoutes.Signin.name){
-                            inclusive = true
-                        }
-                    }
-                }
-            }
-            composable(route = LoginRoutes.Signup.name){
-                SignUpScreen(onNavToHomePage = {
-                    navController.navigate(HomeRoutes.Homepage.name){
-                        popUpTo(LoginRoutes.Signup.name){
-                            inclusive = true
-                        }
-                    }
-                },
-                    loginViewModel = loginViewModel
-                    ) {
-                    navController.navigate(LoginRoutes.Signup.name)
-                }
-            }
-
-            composable(route = HomeRoutes.Homepage.name){
-               Home(navController)
-            }
-            composable(route = HomeRoutes.CariMentor.name){
-                CariMentor(navController)
-            }
-            composable(route = HomeRoutes.Profile.name){
-                Profile(navController)
             }
         }
-}
+        composable(route = LoginRoutes.Signup.name){
+            SignUpScreen(onNavToHomePage = {
+                navController.navigate(HomeRoutes.Homepage.name){
+                    popUpTo(LoginRoutes.Signup.name){
+                        inclusive = true
+                    }
+                }
+            },
+                loginViewModel = loginViewModel
+            ) {
+                navController.navigate(LoginRoutes.Signin.name)
+            }
+        }
+// <<<<<<< revo'sproject
+// }
+// =======
+
+//         composable(route = HomeRoutes.Homepage.name){
+//             Home(navController)
+//         }
+//         composable(route = HomeRoutes.CariMentor.name){
+//             CariMentor(navController)
+//         }
+//         composable(route = HomeRoutes.Profile.name){
+//             Profile(navController)
+//         }
+//         composable(route = HomeRoutes.DetailMentor.name){
+//             DetailMentor(navController)
+//         }
+//     }
+// }
+// >>>>>>> master

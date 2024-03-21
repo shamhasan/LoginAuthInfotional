@@ -1,13 +1,11 @@
 package com.example.loginauth.login
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.loginauth.R
-import com.google.firebase.annotations.concurrent.Background
-import java.time.format.TextStyle
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 
 @Composable
@@ -63,7 +60,7 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp, 219.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 219.dp)
         ) {
             Text(
                 text = "Masuk",
@@ -110,19 +107,22 @@ fun LoginScreen(
                 isError = isError
             )
             Button(
-                onClick = { loginViewModel?.loginUser(context) }, modifier = Modifier
+                onClick = { loginViewModel?.loginUser(context) },
+                modifier = Modifier
                     .padding(16.dp, 50.dp)
                     .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors( Color(0xFF0069B0)))
+                colors = ButtonDefaults.buttonColors( Color(0xFF0069B0))
+            )
              {
                 Text(text = "Masuk",
                     fontSize = 20.sp)
             }
-            Spacer(modifier = Modifier.size(16.dp))
 
+            Spacer(modifier = Modifier.size(32.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = "Dont have an Account?")
                 Spacer(modifier = Modifier.size(8.dp))
@@ -158,106 +158,151 @@ fun LoginScreen(
 @Composable
 fun SignUpScreen(
     loginViewModel: LoginViewModel? = null,
-    onNavToHomePage:() -> Unit,
-    onNavToLoginPage:() -> Unit,
+    onNavToHomePage: () -> Unit,
+    onNavToLoginPage: () -> Unit,
 ) {
     val loginUiState = loginViewModel?.loginUiState
     val isError = loginUiState?.signUpError != null
     val context = LocalContext.current
 
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,) {
-        Text(
-            text="Sign Up",
-            style = MaterialTheme.typography.displayLarge,
-            fontWeight = FontWeight.Black,
-            color = MaterialTheme.colorScheme.primary
-        )
-        if(isError){
-            Text(text = loginUiState?.signUpError ?: "unknown error",
-                color = Color.Red)
-        }
-
-        OutlinedTextField(
+    Box {
+        Image(painter = painterResource(id = R.drawable.login),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds)
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(16.dp),
-            value = loginUiState?.userNameSignUp ?: "",
-            onValueChange = {loginViewModel?.onUserNameChangeSignUp(it)},
-            leadingIcon = {
-                Icon(imageVector = Icons.Default.Person,
-                    contentDescription = null)
-            },
-            label = {
-                Text(text = "Masukkan Email")
-            },
-            isError = isError
-        )
-        OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            value = loginUiState?.passwordSignup ?: "",
-            onValueChange = {loginViewModel?.onPasswordChangeSignup(it)},
-            leadingIcon = {
-                Icon(imageVector = Icons.Default.Lock,
-                    contentDescription = null)
-            },
-            label = {
-                Text(text = "Masukkan Kata Sandi")
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            isError = isError
-        )
-        OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            value = loginUiState?.confirmPasswordSignup ?: "",
-            onValueChange = {loginViewModel?.onConfirmPasswordChange(it)},
-            leadingIcon = {
-                Icon(imageVector = Icons.Default.Lock,
-                    contentDescription = null)
-            },
-            label = {
-                Text(text = "Masukkan Ulang Kata Sandi")
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            isError = isError
-        )
-        Button(onClick = { loginViewModel?. createUser(context) }) {
-            Text(text = "Sign in")
-        }
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center,
-        ){
-            Text(text = "Already Have an Account")
-            Spacer(modifier = Modifier.size(8.dp))
-            TextButton(onClick = { onNavToLoginPage.invoke() }) {
-                Text(text = "Sign In")
-            }
-
-        }
-
-        if(loginUiState?.isLoading == true){
-            CircularProgressIndicator()
-        }
-
-        LaunchedEffect(key1 = loginViewModel?.hasUser){
-            if (loginViewModel?.hasUser == true){
-                onNavToHomePage.invoke()
-            }
-        }
-        if (isError) {
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center
+        ) {
             Text(
-                text = loginUiState?.signUpError ?: "unknown error",
-                color = Color.Red
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = "Sign Up",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Black,
+                color = Color.Black,
+                textAlign = TextAlign.Start
             )
+            if (isError) {
+                Text(
+                    text = loginUiState?.signUpError ?: "unknown error",
+                    color = Color.Red
+                )
+            }
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                value = loginUiState?.name ?: "",
+                onValueChange = { loginViewModel?.onNamechange(it) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = "Masukkan Nama")
+                },
+                isError = isError
+            )
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                value = loginUiState?.userNameSignUp ?: "",
+                onValueChange = { loginViewModel?.onUserNameChangeSignUp(it) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = "Masukkan Email")
+                },
+                isError = isError
+            )
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                value = loginUiState?.passwordSignup ?: "",
+                onValueChange = { loginViewModel?.onPasswordChangeSignup(it) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = "Masukkan Kata Sandi")
+                },
+                visualTransformation = PasswordVisualTransformation(),
+                isError = isError
+            )
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                value = loginUiState?.confirmPasswordSignup ?: "",
+                onValueChange = { loginViewModel?.onConfirmPasswordChange(it) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = "Masukkan Ulang Kata Sandi")
+                },
+                visualTransformation = PasswordVisualTransformation(),
+                isError = isError
+            )
+            Button(onClick = { loginViewModel?.createUser(context)},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp),
+                colors = ButtonDefaults.buttonColors( Color(0xFF0069B0))) {
+                Text(text = "Sign in",
+                    fontSize = 20.sp)
+            }
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Already Have an Account")
+                TextButton(onClick = { onNavToLoginPage.invoke() }) {
+                    Text(text = "Log In",
+                        color = Color(0xFF0069B0)
+                    )
+                }
+
+            }
+
+            if (loginUiState?.isLoading == true) {
+                CircularProgressIndicator()
+            }
+
+            LaunchedEffect(key1 = loginViewModel?.hasUser) {
+                if (loginViewModel?.hasUser == true) {
+                    onNavToHomePage.invoke()
+                }
+            }
+            if (isError) {
+                Text(
+                    text = loginUiState?.signUpError ?: "unknown error",
+                    color = Color.Red
+                )
+            }
+
+
         }
-
-
-
     }
 
 }
@@ -277,3 +322,4 @@ fun PrevSignUpScreen() {
 
     }
 }
+

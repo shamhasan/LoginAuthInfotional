@@ -102,19 +102,21 @@ fun Homepage() {
                             .padding()
                     )
                 }
-//                Image(
-//                    painterResource(id = R.drawable.icon_tambahevent),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .padding(28.dp)
-//                        .align(Alignment.CenterEnd)
-//                        .clickable {
-//
-//                        }
-//                )
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(painterResource(id = R.drawable.icon_tambahevent), contentDescription = null)
-                }
+                Image(
+                    painterResource(id = R.drawable.icon_tambahevent),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(28.dp)
+                        .align(Alignment.CenterEnd)
+                        .clickable {
+
+                        }
+                )
+//                IconButton(onClick = { /*TODO*/ }) {
+//                    Icon(painterResource(
+//                        id = R.drawable.icon_tambahevent),
+//                        contentDescription = null,)
+//                }
             }
         }
 

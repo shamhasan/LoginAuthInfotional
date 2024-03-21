@@ -8,6 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.loginauth.repository.AuthehnticationRepository
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -20,6 +22,10 @@ class LoginViewModel(
 
     var loginUiState by mutableStateOf(LoginUiState())
         private set
+
+    fun onNamechange(name: String){
+        loginUiState = loginUiState.copy(name = name)
+    }
 
     fun onUserNameChange(userName: String){
         loginUiState = loginUiState.copy(userName = userName)
@@ -37,6 +43,10 @@ class LoginViewModel(
         loginUiState = loginUiState.copy(confirmPasswordSignup = password)
     }
 
+    fun onNameChange(name: String){
+        loginUiState = loginUiState.copy(name = name)
+    }
+
     private fun validateLoginForm() =
         loginUiState.userName.isNotBlank() &&
                 loginUiState.password.isNotBlank()
@@ -46,8 +56,12 @@ class LoginViewModel(
                 loginUiState.passwordSignup.isNotBlank()&&
                 loginUiState.confirmPasswordSignup.isNotBlank()
 
-    fun createUser(context: Context) = viewModelScope.launch{
-        repository.createUser(loginUiState.userNameSignUp, loginUiState.passwordSignup, loginUiState.confirmPasswordSignup){ isSuccessful ->
+    fun createUser(context: Context) =
+        viewModelScope.launch{
+
+        repository.createUser(loginUiState.name,loginUiState.userNameSignUp, loginUiState.passwordSignup, loginUiState.confirmPasswordSignup){ isSuccessful ->
+
+
             loginUiState = if (isSuccessful){
                 Toast.makeText(
                     context,
@@ -107,6 +121,7 @@ class LoginViewModel(
 }
 
 data class LoginUiState(
+    val name:String="",
     val userName:String = "",
     val password:String = "",
     val userNameSignUp:String = "",

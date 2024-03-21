@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -30,14 +31,27 @@ fun PageIndicator(
         verticalAlignment = Alignment.CenterVertically
     ){
         repeat(pageCount){iteration->
-            val color = if (pagerState.currentPage == iteration) Color(0xFF00548D) else Color.LightGray
-            Box(modifier = Modifier
-                .padding(horizontal = 4.dp)
-                .clip(CircleShape)
-                .background(color)
-                .size(16.dp)
-                .padding(bottom = 16.dp)
+            val color = if (pagerState.currentPage == iteration) Color(0xFF00548D)
+            else Color.LightGray
+            if (pagerState.currentPage == iteration)
+                Box(modifier = Modifier
+                    .padding(horizontal = 4.dp)
+                    .clip(CircleShape)
+                    .background(color)
+                    .size(18.dp, 9.dp)
+                    .padding(bottom = 16.dp)
             )
+            else
+                Box(modifier = Modifier
+                    .padding(horizontal = 4.dp)
+                    .clip(CircleShape)
+                    .background(color)
+                    .size(6.dp, 6.dp)
+                    .padding(bottom = 16.dp)
+                )
+
+
+
         }
     }
 }
